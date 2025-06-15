@@ -21,10 +21,14 @@ st.title("🚗 Prediksi Harga Mobil Bekas")
 # Fungsi download file dari Google Drive
 def download_file(file_id, dest_path):
     url = f"https://drive.google.com/uc?id={file_id}"
-    if not os.path.exists(dest_path):
-        gdown.download(url, dest_path, quiet=False)
-    else:
-        print(f"{dest_path} already exists, skipping download.")
+    try:
+        if not os.path.exists(dest_path):
+            gdown.download(url, dest_path, quiet=False)
+        else:
+            print(f"{dest_path} already exists, skipping download.")
+    except Exception as e:
+        st.error(f"Gagal download file: {dest_path}. Error: {e}")
+
 
 # ID file dari Google Drive (yang sudah kamu ambil dari folder Drive kamu)
 file_ids = {
